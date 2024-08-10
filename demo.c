@@ -1,10 +1,14 @@
 #include <pico/stdlib.h>
+#include <pico/binary_info.h>
 #include <stdio.h>
 #include "dht.h"
 
 #ifndef DHT_SDA
 #define DHT_SDA 15
 #endif
+
+bi_decl(bi_program_description("periodically prints DHT11 sensor data"));
+bi_decl(bi_1pin_with_name(DHT_SDA, "DHT11 SDA (the second) pin"));
 
 int main() {
 	stdio_init_all();
