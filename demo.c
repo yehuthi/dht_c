@@ -1,8 +1,8 @@
 #include <pico/stdlib.h>
 #include <pico/cyw43_arch.h>
-#include "./src/dht.h"
+#include "dht.h"
 
-int main(int argc, char **argv) {
+int main() {
 	stdio_init_all();
 	cyw43_arch_init();
 #define DHT 15
