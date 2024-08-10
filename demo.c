@@ -1,18 +1,19 @@
 #include <pico/stdlib.h>
-#include <pico/cyw43_arch.h>
+#include <stdio.h>
 #include "dht.h"
+
+#ifndef DHT_SDA
+#define DHT_SDA 15
+#endif
 
 int main() {
 	stdio_init_all();
-	cyw43_arch_init();
-#define DHT 15
-	dht_begin(DHT);
+	dht_begin(DHT_SDA);
 	sleep_ms(1000); // wait for stability
 	for(;;) {
-		printf("reading..\n");
-		const struct dht_data data = dht_read(DHT, -1u);
+		printf("reading pin %d..\n", DHT_SDA);
+		const struct dht_data data = dht_read(DHT_SDA, -1u);
 		const struct dht_info info = dht_data_info(data);
-#undef DHT
 		const char *integrity_strings[] = { "ok", "timeout error", "checksum error"};
 		printf(
 			"%.1f\u2103, %.1f\u1D63\u2095 [raw %d,%d,%d,%d,%d %s]\n",

@@ -8,8 +8,11 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(${project} src/dht.c)
 target_include_directories(${project} PUBLIC include)
-target_link_libraries(${project} pico_stdlib pico_cyw43_arch_none)
+target_link_libraries(${project} pico_stdlib)
 
+if (DEFINED DHT_SDA)
+	add_compile_definitions(DHT_SDA=${DHT_SDA})
+endif()
 add_executable("${project}_demo" demo.c)
 target_link_libraries("${project}_demo" ${project})
 
